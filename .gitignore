@@ -1,0 +1,37 @@
+G2_VistaSP1_BGM-Patch-uninst.exe
+OU.CSL
+OUINFO.INF
+*.stf
+saves_left4gothic
+Saves
+Miles
+./Data/
+UNWISE.EXE
+UNWISE.INI
+VDFS.CFG
+VDFS.DMP
+g2mdk-uninst.exe
+install-addon.log
+vdfs_left4gothic.dmp
+vdfs_mod.dmp
+GothicMod-*
+EULA.txt
+G2MDK-EULA.rtf
+Gothic2.url
+JoWooD Homepage.url
+ReadMe-1.30.txt
+ReadMe-Addon.txt
+ReadMe.txt
+Register-Addon.url
+Register.url
+System
+_work/tools/
+_work/demo (Left 4 Gothic)/
+_work/data/Scripts/_compiled/
+_work/data/Textures/
+_work/data/Anims/
+_work/data/Worlds/
+_work/data/Meshes/
+_work/data/Sound/
+_work/data/Music/
+_work/data/Presets/
