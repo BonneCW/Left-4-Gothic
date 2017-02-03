@@ -2,12 +2,6 @@
             DIALOGGESTURES
 \***********************************/
 
-// Danke an Sektenspinner für diese "Notlösung"
-func string ReadStringArr(var string name, var int offset) {
-    var zCPar_Symbol sym; sym = MEM_PtrToInst(MEM_GetParserSymbol(name));
-    MEMINT_StackPushVar(sym.content + offset * sizeof_zString);
-};
-
 //========================================
 // [intern]
 //========================================
@@ -18,8 +12,7 @@ var int _DIAG_Min;
 // [intern]
 //========================================
 func void _DIAG_Patch() {
-    const int oCNpc__StartDialogAniX = 7700155; // 0x757EBB
-    const int oCNpc__StartDialogAniY = 7700162; // 0x757EC2
+
 
     const int address = 0;
     if(address) {
@@ -63,7 +56,7 @@ func void DIAG_SetMinMax(var int min, var int max) {
 //========================================
 func void _DIAG_SetAni(var string AniName) {
     _DIAG_Patch();
-    const int T_DIALOGGESTURE_ = 9148264; // 0x8B9768
+    
     MemoryProtectionOverride(T_DIALOGGESTURE_, 16);
     AniName = STR_Upper(AniName);
     var zString ani; ani = MEM_PtrToInst(STR_GetAddress(AniName));

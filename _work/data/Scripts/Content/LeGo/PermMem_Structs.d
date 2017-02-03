@@ -12,6 +12,8 @@
     zCArray
  */
 
+class _empty {}; // Empty class used for internal (and bad) purposes
+instance _empty@(_empty);
 class _int { var int i; };
 instance int@(_int);
 instance func@(_int);
@@ -50,7 +52,7 @@ instance zCArray@(zCArray);
 // zCViewText - der Font-Pointer muss erneuert werden, dazu speichere ich mir den Namen des Fonts
 
 instance zCViewText@(zCViewText){
-	_vtbl = 8643396; //0x83E344
+	_vtbl = zCViewText_vtbl;
 	inPrintWin = 0;
 	timer = 0;
 	timed = 0;

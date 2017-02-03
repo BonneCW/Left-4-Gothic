@@ -12,6 +12,8 @@ const int ASMINT_OP_JZ_Byte     = 116;   //0x74
 const int ASMINT_OP_popEAX      = 88;    //0x58
 // /* 2 Byte */
 const int ASMINT_OP_addMemToESP = 9475;  //0x2503
+const int ASMINT_OP_movESItoEAX = 61577; //0xF089
+const int ASMINT_OP_movEAXtoEDI = 51081; //0xC789
 
 //-------------------
 // Registervariablen
@@ -22,12 +24,13 @@ var int ESP;
 var int EBX;
 var int EBP;
 var int EDI;
+var int ESI;
 
 
 //========================================
 // Engine hooken
 //========================================
-func void HookEngineI(var int address, var int oldInstr, var int function) { 
+func void HookEngineI(var int address, var int oldInstr, var int function) {
 
     var int SymbID;   // Symbolindex von 'function'
     var int ptr;      // Pointer auf den Zwischenspeicher der alten Anweisung
@@ -47,11 +50,11 @@ func void HookEngineI(var int address, var int oldInstr, var int function) {
 
     MemoryProtectionOverride (address, oldInstr+3);
     // ----- Eventuell geschützen Speicher behandeln -----
-	
-	if (MEM_ReadByte(address) == 233) { // Hook schon vorhanden
-		HookEngineI(MEM_ReadInt(address+1)+address+5+81, oldInstr, function); 
-		return;
-	};
+
+    if (MEM_ReadByte(address) == 233) { // Hook schon vorhanden
+        HookEngineI(MEM_ReadInt(address+1)+address+5+96, oldInstr, function);
+        return;
+    };
 
     // ----- Die alte Anweisung sichern -----
     ptr = MEM_Alloc(oldInstr);
@@ -100,6 +103,11 @@ func void HookEngineI(var int address, var int oldInstr, var int function) {
     ASM_2(ASMINT_OP_movEDItoEAX);
     ASM_2(ASMINT_OP_movEAXtoMem);
     ASM_4(_@(EDI));
+	
+    // ESI in Daedalus Variable sichern	
+	ASM_2(ASMINT_OP_movESItoEAX);
+	ASM_2(ASMINT_OP_movEAXtoMem);
+	ASM_4(_@(ESI));
 
     // --- Daedalusfunktion aufrufen ---
 
@@ -120,9 +128,14 @@ func void HookEngineI(var int address, var int oldInstr, var int function) {
     ASM_1(ASMINT_OP_movMemToEAX);
     ASM_4(_@(ECX));
     ASM_2(ASMINT_OP_movEAXtoECX);
+		
+	ASM_1(ASMINT_OP_movMemToEax);
+	ASM_4(_@(EDI));
+	ASM_2(ASMINT_OP_movEAXtoEDI);
 
     ASM_1(ASMINT_OP_movMemToEAX);
     ASM_4(_@(EAX));
+
 
 
     // Alte Anweisung wieder einfügen
@@ -140,7 +153,7 @@ func void HookEngineI(var int address, var int oldInstr, var int function) {
 };
 
 func void HookEngineF(var int address, var int oldInstr, var func function) {
-	HookEngineI(address, oldInstr, MEM_GetFuncID(function));
+    HookEngineI(address, oldInstr, MEM_GetFuncID(function));
 };
 func void HookEngine(var int address, var int oldInstr, var string function) {
     HookEngineI(address, oldInstr, MEM_FindParserSymbol(STR_Upper(function)));
