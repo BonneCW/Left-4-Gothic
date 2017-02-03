@@ -159,21 +159,6 @@ var int LesterRettung;
 var int GornRettung;
 var int DiegoRettung;
 
-// Onlinekram
-
-var string username;
-var string passwort;
-
-var int online_playtime;
-var string online_playtime_s;
-
-var string eingabe;
-
-var int Offline_Modus;
-var int ValidateUserPasswort;
-
 var string GOTHIC_RESTART;
 
 var int CurrentLevel2;
-
-var int Mod_OnlineMode;

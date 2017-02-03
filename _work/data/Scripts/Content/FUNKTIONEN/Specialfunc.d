@@ -15,9 +15,6 @@ FUNC VOID SPECIALFUNC_01 ()
 		if (CurrentLevel == 0) // Erster Spielstart
 		{
 			CurrentLevel = CurrentLevel2;
-
-			Offline_Modus = FALSE;
-			ValidateUserPasswort = 0;
 		}
 		else if (CurrentLevel != CurrentLevel2) // Levelwechsel
 		{
@@ -25,58 +22,9 @@ FUNC VOID SPECIALFUNC_01 ()
 		}
 		else	// Spielstand geladen
 		{
-			Offline_Modus = FALSE;
-			ValidateUserPasswort = 1;
-
-			Mod_OnlineMode = 0;
-
-			if (STR_ToInt(online_playtime_s) > 0)
-			{
-				CURL_Send(ConcatStrings(ConcatStrings(ConcatStrings("http://www.teutonicteam.de/gomon/tauschen/actualizePlaytime.php?name=", username), "&game=5&time="), online_playtime_s));
-			};
-
-			online_playtime = 0;
 		};
 
 		CurrentLevel2 = 0;
-	};
-
-	if (GetInput)
-	{
-		if (MEM_KeyState(KEY_RETURN) == KEY_PRESSED)
-		{
-			B_EndEingabe();
-
-			if (STR_Len(username) == 0)
-			{
-				PrintScreen	("Bitte Username eingeben", -1, 45, FONT_SCREEN, 1);
-
-				username = eingabe;
-			}
-			else if (STR_Len(passwort) == 0)
-			{
-				PrintScreen	("Bitte Passwort eingeben", -1, 45, FONT_SCREEN, 1);
-
-				passwort = eingabe;
-			};
-		}
-		else
-		{
-			if (STR_Len(username) == 0)
-			{
-				PrintScreen	("Bitte Username eingeben", -1, 45, FONT_SCREEN, 1);
-
-				eingabe = B_GetEingabe(eingabe);
-			}
-			else if (STR_Len(passwort) == 0)
-			{
-				PrintScreen	("Bitte Passwort eingeben", -1, 45, FONT_SCREEN, 1);
-
-				eingabe = B_GetEingabe(eingabe);
-			};
-		};
-
-		PrintScreen	(eingabe, -1, -1, FONT_SCREENSMALL, 1);
 	};
 
 	if (OldCPU == FALSE)

@@ -21,10 +21,11 @@ func void INIT_GLOBAL()
 	// wird fuer jede Welt aufgerufen (vor INIT_<LevelName>)
 	Game_InitGerman();
 
-	LeGo_Init(LeGo_All & ~LeGo_Focusnames);
+	MEM_SetShowDebug(0);
 
-	username = MEM_GetGothOpt("CLOCKWORK", "username");
-	passwort = MEM_GetGothOpt("CLOCKWORK", "passwort");
+	LeGo_Init(LeGo_HookEngine | LeGo_Random | LeGo_Bloodsplats | LeGo_View | LeGo_Interface | LeGo_FrameFunctions);
+	
+	Spine_Init(SPINE_MODULE_ACHIEVEMENTS | SPINE_MODULE_SCORES);
 
 	Wld_SendTrigger	("SPECIALTRIGGER");
 
@@ -46,13 +47,11 @@ func void INIT_GLOBAL()
 
 	FixPlayerControllsTurnOnNpcAttackMoveBug();
 
-	MEM_SetShowDebug(1);
-
 	ShowManabar(1);
 
 	if (!Hlp_StrCmp(GOTHIC_RESTART, "Y"))
 	{
-		HookEngine (4349731, 7, "B_ENDGAME");
+		//HookEngine (4349731, 7, "B_ENDGAME");
 
 		GOTHIC_RESTART = "Y";
 	};

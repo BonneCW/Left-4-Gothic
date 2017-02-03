@@ -10,19 +10,21 @@
 
 func int PLAYER_HOTKEY_SCREEN_MAP()
 {
-	
+	//B_ENDPRODUCTIONDIALOG();
+	//Mod_InMenu = FALSE;
 };
 
 // Hotkey P
 
 func void PLAYER_HOTKEY_LAME_POTION()
 {
-	var oCNpc test;
-	test = Hlp_GetNpc (hero);
+	/*if (Mod_InMenu == FALSE) {
+		PLAYER_MOBSI_PRODUCTION	= MOBSI_MONOLOG;
 
-	test._zCVob_trafoObjToWorld[3] += 500000;
-	test._zCVob_trafoObjToWorld[7] += 500000;
-	test._zCVob_trafoObjToWorld[11] += 500000;
+		Mod_InMenu = TRUE;
+
+		AI_ProcessInfos (hero);
+	};*/
 };
 
 // Hotkey H

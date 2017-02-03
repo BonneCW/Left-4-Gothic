@@ -2,175 +2,9 @@ FUNC VOID DAUERFUNC_01 ()
 {
 	var int Randi;
 
-	// Spielstart erstmal Username eingeben
-
-	var int Mod_OnlineMode2;
-	Mod_OnlineMode2 = STR_ToInt(MEM_GetGothOpt("L4G", "online"));
-
-	if (Mod_OnlineMode2 == 0)
-	&& (Mod_OnlineMode == 1)
-	{
-		// wurde umgeschalten von Offline auf Online
-
-		ValidateUserPasswort = 1;
-
-		Mod_OnlineMode = 0;
-
-		Offline_Modus = 0;
-	};
-
-	if (Mod_OnlineMode2 == 1)
-	&& (Mod_OnlineMode == 0)
-	{
-		// wurde umgeschalten von Online auf Offline
-
-		B_EndGame();
-
-		Mod_OnlineMode = 1;
-
-		Offline_Modus = 1;
-	};
-
-	if (GetInput == 0)
-	&& (ValidateUserPasswort < 3)
-	&& (Mod_OnlineMode == 0)
-	{
-		if (STR_Len(username) == 0)
-		&& (STR_Len(eingabe) == 0)
-		&& (Offline_Modus == 0)
-		{
-			B_StartEingabe();
-
-			PrintScreen	("Bitte Username eingeben", -1, 45, FONT_SCREEN, 5);
-		}
-		else if (STR_Len(passwort) == 0)
-		&& (STR_Len(eingabe) == 0)
-		&& (Offline_Modus == 0)
-		{
-			B_StartEingabe();
-
-			PrintScreen	("Bitte Passwort eingeben", -1, 45, FONT_SCREEN, 5);
-		}
-		else
-		{
-			eingabe = "";
-		};
-
-		if (STR_Len(passwort) > 1)
-		&& (STR_Len(username) > 1)
-		&& (ValidateUserPasswort == 0)
-		&& (Offline_Modus == 0)
-		{
-			ValidateUserPasswort = TRUE;
-		};
-
-		if (STR_Len(username) > 1)
-		&& (STR_Len(eingabe) > 0)
-		&& (STR_Len(passwort) <= 1)
-		{
-			eingabe = "";
-		};
-
-		if (validateUserPasswort == 2)
-		{
-			validateUserPasswort = 3;
-		};
-
-		if (validateUserPasswort == 1)
-		{
-			eingabe = "";
-			var string testup;
-			testup = ConcatStrings("http://www.teutonicteam.de/gomon/tauschen/validatePW.php?name=", username);
-			testup = ConcatStrings(testup, "&passwort=");
-			testup = ConcatStrings(testup, passwort);
-			testup = ConcatStrings(testup, "&game=5");
-
-			eingabe = CURL_Get(testup);
-
-			validateUserPasswort = 2;
-
-			if (STR_GetCharAt(eingabe, 0) == STR_GetCharAt("Y", 0))
-			{
-				PrintScreen	("Passwort korrekt", -1, 55, FONT_SCREEN, 2);
-
-				var int release;
-				var int beta;
-
-				eingabe = STR_Tok(eingabe, ";");
-				eingabe = STR_Tok("NULL", ";"); // für Releaseversionen
-
-				release = STR_ToInt(eingabe);
-
-				eingabe = STR_Tok("NULL", ";"); // für Betas
-
-				beta = STR_ToInt(eingabe);
-
-				if (release > 043)
-				{
-					PrintScreen	("Neuere Version erhältlich!", -1, 60, FONT_SCREEN, 10);
-				};
-
-				MEM_SetGothOpt("CLOCKWORK", "username", username);
-				MEM_SetGothOpt("CLOCKWORK", "passwort", passwort);
-			}
-			else if (STR_GetCharAt(eingabe, 0) == STR_GetCharAt("N", 0))
-			{
-				PrintScreen	("Passwort falsch", -1, 55, FONT_SCREEN, 2);
-
-				MEM_SetGothOpt("CLOCKWORK", "username", "0");
-				MEM_SetGothOpt("CLOCKWORK", "passwort", "0");
-
-				username = "";
-				passwort = "";
-
-				eingabe = "";
-
-				validateUserPasswort = 0;
-			}
-			else if (STR_GetCharAt(eingabe, 0) == STR_GetCharAt("E", 0))
-			{
-				PrintScreen	("Verbindung kann zur Zeit nicht hergestellt werden!", -1, 55, FONT_SCREEN, 2);
-				PrintScreen	("Spiel jetzt im Offline-Modus", -1, 60, FONT_SCREEN, 2);
-
-				eingabe = "";
-
-				Offline_Modus = 1;
-			}
-			else if (STR_GetCharAt(eingabe, 0) == STR_GetCharAt("B", 0))
-			{
-				PrintScreen	("Dein Account wurde gebannt!", -1, 55, FONT_SCREEN, 2);
-				PrintScreen	("Spiel jetzt im Offline-Modus", -1, 60, FONT_SCREEN, 2);
-
-				eingabe = "";
-
-				Offline_Modus = 1;
-			}
-			else
-			{
-				PrintScreen	("Unbekannter Fehler", -1, 55, FONT_SCREEN, 2);
-
-				eingabe = "";
-
-				Offline_Modus = 1;
-			};
-		};
-	};
-
-	if (online_playtime >= 1800)
-	&& (Offline_Modus == 0)
-	{
-		CURL_Send(ConcatStrings(ConcatStrings(ConcatStrings("http://www.teutonicteam.de/gomon/tauschen/actualizePlaytime.php?name=", username), "&game=5&time="), IntToString(online_playtime)));
-		online_playtime = 0;
-	};
-
-	online_playtime += 1;
-	online_playtime_s = IntToString(online_playtime);
-
 	// Im Startraum den Konfigurationsmonolog starten
 
 	if (CurrentLevel == STARTRAUM_ZEN)
-	&& ((ValidateUserPasswort == 3)
-	|| (Mod_OnlineMode == 1))
 	{
 		if (Mod_InMenu == FALSE)
 		{
@@ -734,46 +568,52 @@ FUNC VOID DAUERFUNC_01 ()
 
 			if (EndCounter == 2)
 			{
-				if (Offline_Modus == 0)
+				var int HeroPoints;
+
+				if (Mod_Charakter == 1)
 				{
-					var int HeroPoints;
+					HeroPoints = LesterPoints;
+				}
+				else if (Mod_Charakter == 2)
+				{
+					HeroPoints = GornPoints;
+				}
+				else if (Mod_Charakter == 3)
+				{
+					HeroPoints = DiegoPoints;
+				}
+				else if (Mod_Charakter == 4)
+				{
+					HeroPoints = MiltenPoints;
+				};
 
-					if (Mod_Charakter == 1)
-					{
-						HeroPoints = LesterPoints;
-					}
-					else if (Mod_Charakter == 2)
-					{
-						HeroPoints = GornPoints;
-					}
-					else if (Mod_Charakter == 3)
-					{
-						HeroPoints = DiegoPoints;
-					}
-					else if (Mod_Charakter == 4)
-					{
-						HeroPoints = MiltenPoints;
+				HeroPoints = HeroPoints * Mod_Schwierigkeitsgrad;
+
+				if (CurrentLevel == TESTLEVEL_ZEN)
+				{
+					if (Spine_GetUserScore(L4G_SCORE_TEST) < HeroPoints) {
+						Spine_UpdateScore(L4G_SCORE_TEST, HeroPoints);
+						Spine_UnlockAchievement(L4G_ERFOLG_PASSEDTEST);
 					};
-
-					HeroPoints = HeroPoints*Mod_Schwierigkeitsgrad;
-
-					CURL_Send(ConcatStrings(ConcatStrings(ConcatStrings("http://www.teutonicteam.de/gomon/tauschen/addL4GChar.php?name=", username), "&char="), IntToString(Mod_Charakter)));
-
-					if (CurrentLevel == TESTLEVEL_ZEN)
-					{
-						CURL_Send(ConcatStrings(ConcatStrings(ConcatStrings(ConcatStrings("http://www.teutonicteam.de/highscores/insert.php?name=", username), "&points="), IntToString(HeroPoints)), "&id=18&version=040"));
-					}
-					else if (CurrentLevel == KAMPAGNEONE_ZEN)
-					{
-						CURL_Send(ConcatStrings(ConcatStrings(ConcatStrings(ConcatStrings("http://www.teutonicteam.de/highscores/insert.php?name=", username), "&points="), IntToString(HeroPoints)), "&id=19&version=040"));
-					};
+				}
+				else if (CurrentLevel == KAMPAGNEONE_ZEN)
+				{
+					//CURL_Send(ConcatStrings(ConcatStrings(ConcatStrings(ConcatStrings("http://www.teutonicteam.de/highscores/insert.php?name=", username), "&points="), IntToString(HeroPoints)), "&id=19&version=040"));
+				};
+				if (Mod_Schwierigkeitsgrad == 1) {
+					Spine_UnlockAchievement(L4G_ERFOLG_PASSEDEASY);
+				} else if (Mod_Schwierigkeitsgrad == 2) {
+					Spine_UnlockAchievement(L4G_ERFOLG_PASSEDEASY);
+					Spine_UnlockAchievement(L4G_ERFOLG_PASSEDMEDIUM);
+				} else if (Mod_Schwierigkeitsgrad == 3) {
+					Spine_UnlockAchievement(L4G_ERFOLG_PASSEDEASY);
+					Spine_UnlockAchievement(L4G_ERFOLG_PASSEDMEDIUM);
+					Spine_UnlockAchievement(L4G_ERFOLG_PASSEDHARD);
 				};
 			};
 
-			if (EndCounter == 3)
+			if (EndCounter == 6)
 			{
-				B_EndGame();
-
 				ExitSession ();
 			};
 		};
@@ -804,18 +644,8 @@ FUNC VOID DAUERFUNC_01 ()
 				AI_Wait	(hero, 2);
 			};
 
-			if (EndCounter == 2)
-			{
-				if (Offline_Modus == 0)
-				{
-					CURL_Send(ConcatStrings(ConcatStrings(ConcatStrings("http://www.teutonicteam.de/gomon/tauschen/addL4GChar.php?name=", username), "&char="), IntToString(Mod_Charakter)));
-				};
-			};
-
 			if (EndCounter == 3)
 			{
-				B_EndGame();
-
 				ExitSession ();
 			};
 		};

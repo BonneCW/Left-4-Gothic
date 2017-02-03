@@ -192,7 +192,17 @@ FUNC VOID Info_Mod_Hero_Start_Kampagne_Info ()
 {
 	Info_ClearChoices	(Info_Mod_Hero_Start_Kampagne);
 
-	Info_AddChoice	(Info_Mod_Hero_Start_Kampagne, "Testlevel", Info_Mod_Hero_Start_Testlevel);
+	var string testString;
+	testString = "TestLevel (";
+	if (Spine_GetUserScore(L4G_SCORE_TEST) > 0) {
+		testString = ConcatStrings(testString, IntToString(Spine_GetUserRank(L4G_SCORE_TEST)));
+		testString = ConcatStrings(testString, ". Platz, ");
+		testString = ConcatStrings(testString, IntToString(Spine_GetUserScore(L4G_SCORE_TEST)));
+		testString = ConcatStrings(testString, " Punkte)");
+	} else {
+		testString = ConcatStrings(testString, "Noch nicht gespielt)");
+	};
+	Info_AddChoice	(Info_Mod_Hero_Start_Kampagne, testString, Info_Mod_Hero_Start_Testlevel);
 	//Info_AddChoice	(Info_Mod_Hero_Start_Kampagne, "Kampagne 1 - Der verlorene Tempel", Info_Mod_Hero_Start_Kampagne_1);
 };
 

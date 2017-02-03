@@ -7,8 +7,6 @@ _INTERN\FLOAT.D
 
 LeGo\Header.src
 
-
-
 AI\AI_INTERN\AI_CONSTANTS.D
 AI\AI_INTERN\BODYSTATES.D
 AI\AI_INTERN\FOCUS.D
@@ -16,6 +14,8 @@ AI\AI_INTERN\Npc_SetToMad.d
 AI\AI_INTERN\Species.d
 AI\AI_INTERN\PrintDebug.d
 AI\AI_INTERN\PrintPlus.d
+
+Spine\Spine.src
 
 STORY\XP_Constants.d
 STORY\Story_Globals\*.d
@@ -28,11 +28,8 @@ FUNKTIONEN\Bars.d
 
 FUNKTIONEN\B_GetDist.d
 
-FUNKTIONEN\Curl.d
 FUNKTIONEN\STR_Tok.d
-FUNKTIONEN\B_GetEingabe.d
 FUNKTIONEN\FixPlayerControllsTurnOnNpcAttackMoveBug.d
-FUNKTIONEN\B_EndGame.d
 
 
 STORY\B_Story\C_NpcIsInQuarter.d
