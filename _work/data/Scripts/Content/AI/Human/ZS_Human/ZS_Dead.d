@@ -167,6 +167,10 @@ func void ZS_Dead ()
 					LesterPoints += 5;
 				};
 			};
+			
+			if (C_NpcIsHero(other)) {
+				Spine_UnlockAchievement(L4G_ERFOLG_BOSSKILLER);
+			};
 
 			if (Hlp_GetInstanceID(other) != Hlp_GetInstanceID(MiltenSkelett))
 			{

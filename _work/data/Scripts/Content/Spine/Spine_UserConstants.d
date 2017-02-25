@@ -9,19 +9,22 @@ const int L4G_ERFOLG_PASSEDEASY = 1;
 const int L4G_ERFOLG_PASSEDMEDIUM = 2;
 const int L4G_ERFOLG_PASSEDHARD = 3;
 const int L4G_ERFOLG_EARLYACCESSOR = 4;
+const int L4G_ERFOLG_BOSSKILLER = 5;
 
 // define the strings for the achievements
 // don't use an identifier for unlockAchievement greater than the maximum index of the array
-const int MAX_ACHIEVEMENTS = 4;
+const int MAX_ACHIEVEMENTS = 6;
 const string SPINE_ACHIEVEMENT_NAMES[MAX_ACHIEVEMENTS] = {
 	"Test bestanden",
 	"Einfach",
 	"Mittel",
 	"Schwer",
-	"Early Accessor"
+	"Early Accessor",
+	"Boss-inator"
 };
 
 const string SPINE_ACHIEVEMENT_TEXTURES[MAX_ACHIEVEMENTS] = {
+	"SPINE_ACHIEVEMENT_DEFAULT.TGA",
 	"SPINE_ACHIEVEMENT_DEFAULT.TGA",
 	"SPINE_ACHIEVEMENT_DEFAULT.TGA",
 	"SPINE_ACHIEVEMENT_DEFAULT.TGA",
