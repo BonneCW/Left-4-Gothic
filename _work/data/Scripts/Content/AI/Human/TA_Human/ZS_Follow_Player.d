@@ -41,12 +41,10 @@ func void B_MoveFollowNpc()
 };
 
 FUNC VOID ValidateAndCollectItem(VAR C_NPC slf, var C_ITEM itm) {
-	Print (ConcatStrings("Found weapon: ", itm.name));
 	if (Hlp_IsValidItem (itm))
 	&& (Npc_GetDistToItem (slf, itm) < 1000)
 	&& (Npc_GetHeightToItem (slf, itm) < 230)
 	{
-		Print ("Valid weapon and near to it");
 		if ((Hlp_IsItem(itm, ItMw_Lester_01_World) == TRUE)
 		|| (Hlp_IsItem(itm, ItMw_Lester_02_World) == TRUE)
 		|| (Hlp_IsItem(itm, ItMw_Lester_03_World) == TRUE)
@@ -60,10 +58,8 @@ FUNC VOID ValidateAndCollectItem(VAR C_NPC slf, var C_ITEM itm) {
 		|| (Hlp_IsItem(itm, ItMw_Lester_05) == TRUE)
 		|| (Hlp_IsItem(itm, ItMw_Lester_06) == TRUE))
 		{
-			Print ("Weapon for Lester");
 			if (Hlp_GetInstanceID(slf) == Hlp_GetInstanceID(Char_Einhand))
 			{
-				Print ("LEster wants to pick up");
 				slf.aivar[AIV_ItemSammler] = FALSE;
 
 				if (Npc_GetDistToItem (slf, itm) > 200)
@@ -142,10 +138,8 @@ FUNC VOID ValidateAndCollectItem(VAR C_NPC slf, var C_ITEM itm) {
 		|| (Hlp_IsItem(itm, ItMw_Gorn_05) == TRUE)
 		|| (Hlp_IsItem(itm, ItMw_Gorn_06) == TRUE))
 		{
-			Print ("Weapon for Gorn");
 			if (Hlp_GetInstanceID(slf) == Hlp_GetInstanceID(Char_Zweihand))
 			{
-				Print ("Gorn wants to pick up");
 				slf.aivar[AIV_ItemSammler] = FALSE;
 
 				if (Npc_GetDistToItem (slf, itm) > 200)
@@ -218,10 +212,8 @@ FUNC VOID ValidateAndCollectItem(VAR C_NPC slf, var C_ITEM itm) {
 		|| (Hlp_IsItem(itm, ItMw_Diego_02) == TRUE)
 		|| (Hlp_IsItem(itm, ItMw_Diego_03) == TRUE))
 		{
-			Print ("Weapon for Diego");
 			if (Hlp_GetInstanceID(slf) == Hlp_GetInstanceID(Char_Bogen))
 			{
-				Print ("Diego wants to pick up");
 				slf.aivar[AIV_ItemSammler] = FALSE;
 
 				if (Npc_GetDistToItem (slf, itm) > 200)
@@ -276,10 +268,8 @@ FUNC VOID ValidateAndCollectItem(VAR C_NPC slf, var C_ITEM itm) {
 		|| (Hlp_IsItem(itm, ItMw_Milten_02) == TRUE)
 		|| (Hlp_IsItem(itm, ItMw_Milten_03) == TRUE))
 		{
-			Print ("Weapon for Milten");
 			if (Hlp_GetInstanceID(slf) == Hlp_GetInstanceID(Char_Magie))
 			{
-				Print ("Milten wants to pick up");
 				slf.aivar[AIV_ItemSammler] = FALSE;
 
 				if (Npc_GetDistToItem (slf, itm) > 200)
@@ -340,10 +330,8 @@ FUNC VOID ValidateAndCollectItem(VAR C_NPC slf, var C_ITEM itm) {
 		|| (Hlp_IsItem(itm, ItRw_Diego_05) == TRUE)
 		|| (Hlp_IsItem(itm, ItRw_Diego_06) == TRUE))
 		{
-			Print ("Weapon for Diego");
 			if (Hlp_GetInstanceID(slf) == Hlp_GetInstanceID(Char_Bogen))
 			{
-				Print ("Diego wants to pick up");
 				slf.aivar[AIV_ItemSammler] = FALSE;
 
 				if (Npc_GetDistToItem (slf, itm) > 200)
@@ -415,10 +403,8 @@ FUNC VOID ValidateAndCollectItem(VAR C_NPC slf, var C_ITEM itm) {
 		|| (Hlp_IsItem(itm, ItRu_Milten_04_World) == TRUE)
 		|| (Hlp_IsItem(itm, ItRu_Milten_05_World) == TRUE))
 		{
-			Print ("Weapon for Milten");
 			if (Hlp_GetInstanceID(slf) == Hlp_GetInstanceID(Char_Magie))
 			{
-				Print ("Milten wants to pick up");
 				slf.aivar[AIV_ItemSammler] = FALSE;
 
 				if (Npc_GetDistToItem (slf, itm) > 200)
