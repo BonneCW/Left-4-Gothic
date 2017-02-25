@@ -644,6 +644,8 @@ FUNC VOID Info_Mod_Hero_Start_EXIT_Info ()
 	B_ENDPRODUCTIONDIALOG();
 
 	Mod_StartCampaign = 1;
+	
+	Spine_UnlockAchievement(L4G_ERFOLG_EARLYACCESSOR);
 
 	if (Mod_Kampagne == 1)
 	{
