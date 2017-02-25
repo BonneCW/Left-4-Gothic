@@ -1542,6 +1542,36 @@ FUNC VOID DAUERFUNC_01 ()
 			CreateInvItems	(hero, ItRw_Diego_06, 1);
 		};
 
+		if (Npc_HasItems(hero, ItRu_Milten_01_World) > 0)
+		{
+			Npc_RemoveInvItems	(hero, ItRu_Milten_01_World, 1);
+			CreateInvItems	(hero, ItRu_Milten_01, 1);
+		};
+
+		if (Npc_HasItems(hero, ItRu_Milten_02_World) > 0)
+		{
+			Npc_RemoveInvItems	(hero, ItRu_Milten_02_World, 1);
+			CreateInvItems	(hero, ItRu_Milten_02, 1);
+		};
+
+		if (Npc_HasItems(hero, ItRu_Milten_03_World) > 0)
+		{
+			Npc_RemoveInvItems	(hero, ItRu_Milten_03_World, 1);
+			CreateInvItems	(hero, ItRu_Milten_03, 1);
+		};
+
+		if (Npc_HasItems(hero, ItRu_Milten_04_World) > 0)
+		{
+			Npc_RemoveInvItems	(hero, ItRu_Milten_04_World, 1);
+			CreateInvItems	(hero, ItRu_Milten_04, 1);
+		};
+
+		if (Npc_HasItems(hero, ItRu_Milten_05_World) > 0)
+		{
+			Npc_RemoveInvItems	(hero, ItRu_Milten_05_World, 1);
+			CreateInvItems	(hero, ItRu_Milten_05, 1);
+		};
+
 		// Hordenführer wieder spawnen lassen
 
 		if (Mod_Hordenfuehrer_Summon > 0)
