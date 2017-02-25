@@ -514,7 +514,7 @@ FUNC VOID Info_Mod_Hero_Start_Schwierigkeitsgrad_Leicht ()
 
 	HAI_TIME_UNCONSCIOUS = 45;
 
-	ZombieHorden_Max = 10;
+	ZombieHorden_Max = 8;
 };
 
 INSTANCE Info_Mod_Hero_Start_Punkte (C_INFO)
